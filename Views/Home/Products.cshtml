@@ -1,0 +1,52 @@
+@using ProductsAndCategories.Models
+@model Product
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<partial name="PNavPartial"/>
+
+<div class="full-height products row remove-padding">
+  <div class="col-sm-1 h-100 remove-padding"></div>
+  <div class="col-sm-4 h-100 remove-padding">
+
+    <!-- start left content -->
+    <h4 class="pt-4 pb-3">ADD A NEW PRODUCT</h4>
+    <form asp-action="ProcessProduct" asp-controller="home" method="POST">
+      <div class="form-group">
+        <label asp-for="Name" class="ml-2"></label>
+        <input asp-for="Name" class="form-control" placeholder="Product Name">
+        <span asp-validation-for="Name" style="font-size:small;color:red;" class="ml-2"></span>
+      </div>
+      <div class="form-group">
+        <label asp-for="Description" class="ml-2"></label>
+        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="Description" style="font-size:small;color:red;" class="ml-2"></span>
+      </div>
+      <div class="form-group">
+        <label asp-for="Price" class="ml-2"></label>
+        <input asp-for="Price" class="form-control" placeholder="Price">
+        <span asp-validation-for="Price" style="font-size:small;color:red;" class="ml-2"></span>
+      </div>
+      <button type="submit" class="btn btn-outline-dark btn-block">SUBMIT NEW PRODUCT</button>
+    </form>
+    <!-- end left content -->
+
+  </div>
+  <div class="col-sm-1 h-100 remove-padding"></div>
+  <div class="col-sm-1 h-100 remove-padding"></div>
+  <div class="col-sm-4 h-100 remove-padding">
+    <!-- start right content -->
+    <h4 class="pt-4 pb-3">EXISTING PRODUCTS</h4>
+    <table class="table table-bordered table-hover bg-white">
+      @foreach (var product in ViewBag.AllProducts) {
+      <tr>
+        <td><a href="/products/@product.ProductId">@product.Name</a></td>
+      </tr>
+      }
+    </table>
+    <!-- end right content -->
+  </div>
+  <div class="col-sm-1 h-100 remove-padding"></div>
+</div>

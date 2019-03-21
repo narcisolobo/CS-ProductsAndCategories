@@ -1,0 +1,47 @@
+@using ProductsAndCategories.Models
+@model Category
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<partial name="CNavPartial"/>
+
+<div class="full-height categories row remove-padding">
+  <div class="col-sm-1 h-100 remove-padding"></div>
+  <div class="col-sm-4 h-100 remove-padding">
+
+    <!-- start left content -->
+    <div class="card w-100 mt-4 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item font-weight-bold">Products:</li>
+        @foreach (var prod in Model.AssociatedProducts) {
+        <li class="list-group-item">@prod.Product.Name</li>
+        }
+      </ul>
+    </div>
+    <!-- end left content -->
+
+  </div>
+  <div class="col-sm-1 h-100 remove-padding"></div>
+  <div class="col-sm-1 h-100 remove-padding"></div>
+  <div class="col-sm-4 h-100 remove-padding">
+    
+    <!-- start right content -->
+    <h5 class="my-4">Add Product:</h5>
+    <form asp-action="AddProduct" asp-controller="home" method="POST">
+      <select name="Id" class="form-control mb-3">
+        <option value="0"></option>
+        @foreach (var product in ViewBag.UnassociatedProducts){
+        <option value="@product.ProductId">@product.Name</option>
+        }
+      </select>
+      <button type="submit" class="btn btn-outline-dark btn-block">ADD PRODUCT</button>
+      @Html.Raw(TempData["alertMessage"])
+    </form>
+  </div>
+  <div class="col-sm-1 h-100 remove-padding"></div>
+</div>

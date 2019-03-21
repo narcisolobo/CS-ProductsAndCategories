@@ -1,0 +1,42 @@
+@using ProductsAndCategories.Models
+@model Category
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<partial name="CNavPartial"/>
+
+<div class="full-height categories row remove-padding">
+  <div class="col-sm-1 h-100 remove-padding"></div>
+  <div class="col-sm-4 h-100 remove-padding">
+
+    <!-- start left content -->
+    <h4 class="pt-4 pb-3">ADD A NEW CATEGORY</h4>
+    <form asp-action="ProcessCategory" asp-controller="home" method="POST">
+      <div class="form-group">
+        <label asp-for="Name" class="ml-2"></label>
+        <input asp-for="Name" class="form-control" placeholder="Category Name">
+        <span asp-validation-for="Name" style="font-size:small;color:red;" class="ml-2"></span>
+      </div>
+      <button type="submit" class="btn btn-outline-dark btn-block">SUBMIT NEW CATEGORY</button>
+    </form>
+    <!-- end left content -->
+
+  </div>
+  <div class="col-sm-1 h-100 remove-padding"></div>
+  <div class="col-sm-1 h-100 remove-padding"></div>
+  <div class="col-sm-4 h-100 remove-padding">
+    <!-- start right content -->
+    <h4 class="pt-4 pb-3">EXISTING CATEGORIES</h4>
+    <table class="table table-bordered table-hover bg-white">
+      @foreach (var category in ViewBag.AllCategories) {
+      <tr>
+        <td><a href="/categories/@category.CategoryId">@category.Name</a></td>
+      </tr>
+      }
+    </table>
+    <!-- end right content -->
+  </div>
+  <div class="col-sm-1 h-100 remove-padding"></div>
+</div>
